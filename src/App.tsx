@@ -1,26 +1,61 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Provider } from 'react-redux'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
+import { Box } from '@mui/material'
+import { store } from './store'
+import Chat from './Chat'
 
-function App() {
+const theme = createTheme({
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#f8b800',
+      contrastText: '#ffffff',
+    },
+    secondary: {
+      main: '#34B7F1',
+    },
+    background: {
+      default: '#f0f2f5',
+      paper: '#ffffff',
+    },
+    text: {
+      primary: '#3b4a54',
+      secondary: '#667781',
+    },
+  },
+  typography: {
+    fontFamily: '"Segoe UI", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif',
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          backgroundColor: '#f0f2f5',
+        },
+      },
+    },
+  },
+})
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Box
+          sx={{
+            minHeight: '100vh',
+            backgroundColor: 'background.default',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+          <Chat />
+        </Box>
+      </ThemeProvider>
+    </Provider>
+  )
 }
-
-export default App;
